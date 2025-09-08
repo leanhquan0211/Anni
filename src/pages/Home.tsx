@@ -25,7 +25,7 @@ const Home = () => {
             Love Diary
           </h1>
           <p className="text-xl text-foreground/80 max-w-md mx-auto">
-            Nơi lưu giữ những kỷ niệm đẹp nhất của chúng ta 💕
+            Nơi lưu giữ tình cảm 💕
           </p>
         </div>
 

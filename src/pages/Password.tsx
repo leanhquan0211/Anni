@@ -12,7 +12,7 @@ const Password = () => {
   const navigate = useNavigate();
 
   // Simple password check - in real app, this would be more secure
-  const correctPassword = "love2024";
+  const correctPassword = "17092022";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +94,7 @@ const Password = () => {
 
         {/* Hint */}
         <div className="text-center mt-4 text-sm text-foreground/50">
-          💡 Gợi ý: love2024
+          💡 Gợi ý: DayLove
         </div>
       </div>
     </div>

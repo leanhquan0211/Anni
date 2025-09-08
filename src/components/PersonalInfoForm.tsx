@@ -84,7 +84,7 @@ const PersonalInfoForm = ({ personalInfo, onUpdate }: PersonalInfoFormProps) => 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Person 1 */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-primary">Người thứ nhất</h3>
+            <h3 className="font-semibold text-primary">Anh</h3>
             <div>
               <Label htmlFor="person1-name">Tên</Label>
               <Input
@@ -130,7 +130,7 @@ const PersonalInfoForm = ({ personalInfo, onUpdate }: PersonalInfoFormProps) => 
 
           {/* Person 2 */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-primary">Người thứ hai</h3>
+            <h3 className="font-semibold text-primary">Em</h3>
             <div>
               <Label htmlFor="person2-name">Tên</Label>
               <Input
