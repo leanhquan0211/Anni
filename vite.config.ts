@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/", // Sửa lại thành "/" thay vì "/Anni/" cho production
+  base: mode === "production" ? "/Anni/" : "/", // Sử dụng /Anni/ cho production
   server: {
     host: "::",
     port: 8080,
