@@ -10,11 +10,13 @@ interface PersonalInfo {
     name: string;
     birthday: string;
     hobby: string;
+    nickname: string;
   };
   person2: {
     name: string;
     birthday: string;
     hobby: string;
+    nickname: string;
   };
 }
 
@@ -126,6 +128,20 @@ const PersonalInfoForm = ({ personalInfo, onUpdate }: PersonalInfoFormProps) => 
                 className="border-primary/20 focus:border-primary"
               />
             </div>
+            <div>
+              <Label htmlFor="person1-nickname">ID</Label>
+              <Input
+                id="person1-nickname"
+                value={formData.person1.nickname}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  person1: { ...formData.person1, nickname: e.target.value }
+                })}
+                disabled={!isEditing}
+                placeholder="Biệt danh thân mật..."
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
           </div>
 
           {/* Person 2 */}
@@ -169,6 +185,20 @@ const PersonalInfoForm = ({ personalInfo, onUpdate }: PersonalInfoFormProps) => 
                 })}
                 disabled={!isEditing}
                 placeholder="Du lịch, nấu ăn..."
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
+            <div>
+              <Label htmlFor="person2-nickname">ID</Label>
+              <Input
+                id="person2-nickname"
+                value={formData.person2.nickname}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  person2: { ...formData.person2, nickname: e.target.value }
+                })}
+                disabled={!isEditing}
+                placeholder="Biệt danh thân mật..."
                 className="border-primary/20 focus:border-primary"
               />
             </div>

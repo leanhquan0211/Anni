@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Heart, Users, Calendar, Star, Plus, Edit, LogOut } from "lucide-react";
+import { Heart, Users, Calendar, Star, Plus, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import MeetingCard from "@/components/MeetingCard";
 import MeetingForm from "@/components/MeetingForm";
 import PersonalInfoForm from "@/components/PersonalInfoForm";
+import { useState } from "react";
 
 interface Meeting {
   id: string;
@@ -24,47 +25,59 @@ interface PersonalInfo {
     name: string;
     birthday: string;
     hobby: string;
+    nickname: string;
   };
   person2: {
     name: string;
     birthday: string;
     hobby: string;
+    nickname: string;
   };
 }
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [loveStartDate, setLoveStartDate] = useState("2024-01-14");
-  const [meetings, setMeetings] = useState<Meeting[]>([
+
+  // 🔹 Lưu ngày bắt đầu yêu
+  const [loveStartDate, setLoveStartDate] = useLocalStorage("loveStartDate", "2022-09-17");
+
+  // 🔹 Lưu danh sách buổi gặp
+  const [meetings, setMeetings] = useLocalStorage<Meeting[]>("meetings", [
     {
       id: "1",
       title: "Buổi hẹn đầu tiên",
       date: "2024-01-14",
       location: "Cafe Highlands",
       description: "Ngày đẹp nhất trong đời. Em rất xinh và dễ thương 💕",
-      rating: 5
+      rating: 5,
     },
     {
-      id: "2", 
+      id: "2",
       title: "Xem phim cùng nhau",
       date: "2024-02-14",
       location: "CGV Vincom",
       description: "Xem phim tình cảm, em khóc và anh ôm em hihi",
-      rating: 5
-    }
+      rating: 5,
+    },
   ]);
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
+
+  // 🔹 Lưu thông tin cá nhân
+  const [personalInfo, setPersonalInfo] = useLocalStorage<PersonalInfo>("personalInfo", {
     person1: {
       name: "Anh",
-      birthday: "1995-01-01",
-      hobby: "Chơi game, xem phim"
+      birthday: "2005-11-02",
+      hobby: "Game, ngủ",
+      nickname: "Cunscondangthuong",
     },
     person2: {
       name: "Em",
-      birthday: "1996-02-14",
-      hobby: "Đọc sách, nghe nhạc"
-    }
+      birthday: "2005-04-15",
+      hobby: "Mèo, ngủ",
+      nickname: "Meowcondangso",
+    },
   });
+
+  // Các state tạm (không cần lưu localStorage)
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingMeeting, setEditingMeeting] = useState<Meeting | null>(null);
 
@@ -77,35 +90,32 @@ const Dashboard = () => {
     const startDate = new Date(loveStartDate);
     const today = new Date();
     const diffTime = Math.abs(today.getTime() - startDate.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  const handleAddMeeting = (meetingData: Omit<Meeting, 'id'>) => {
+  const handleAddMeeting = (meetingData: Omit<Meeting, "id">) => {
     const meeting: Meeting = {
       id: Date.now().toString(),
-      ...meetingData
+      ...meetingData,
     };
-
-    setMeetings(prev => [meeting, ...prev]);
+    setMeetings((prev) => [meeting, ...prev]);
     setShowAddForm(false);
     toast.success("Đã thêm buổi gặp mới! 💕");
   };
 
-  const handleEditMeeting = (meetingData: Omit<Meeting, 'id'>) => {
+  const handleEditMeeting = (meetingData: Omit<Meeting, "id">) => {
     if (!editingMeeting) return;
-    
-    setMeetings(prev => prev.map(meeting => 
-      meeting.id === editingMeeting.id 
-        ? { ...meetingData, id: editingMeeting.id }
-        : meeting
-    ));
+    setMeetings((prev) =>
+      prev.map((meeting) =>
+        meeting.id === editingMeeting.id ? { ...meetingData, id: editingMeeting.id } : meeting
+      )
+    );
     setEditingMeeting(null);
     toast.success("Đã cập nhật buổi gặp! 💕");
   };
 
   const handleDeleteMeeting = (id: string) => {
-    setMeetings(prev => prev.filter(meeting => meeting.id !== id));
+    setMeetings((prev) => prev.filter((meeting) => meeting.id !== id));
     toast.success("Đã xóa buổi gặp! 💔");
   };
 
@@ -145,7 +155,9 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Label htmlFor="love-start-date" className="text-sm">Ngày bắt đầu</Label>
+                <Label htmlFor="love-start-date" className="text-sm">
+                  Ngày bắt đầu
+                </Label>
                 <Input
                   id="love-start-date"
                   type="date"
@@ -161,7 +173,7 @@ const Dashboard = () => {
             <CardHeader className="text-center">
               <Calendar className="w-8 h-8 text-primary mx-auto" />
               <CardTitle className="text-2xl font-bold text-primary">{meetings.length}</CardTitle>
-              <CardDescription>Số buổi gặp</CardDescription>
+              <CardDescription>Số lần gặp nhau kể từ tháng 7/2024</CardDescription>
             </CardHeader>
           </Card>
 
@@ -169,7 +181,10 @@ const Dashboard = () => {
             <CardHeader className="text-center">
               <Star className="w-8 h-8 text-accent mx-auto" fill="currentColor" />
               <CardTitle className="text-2xl font-bold text-accent">
-                {meetings.length > 0 ? (meetings.reduce((sum, m) => sum + m.rating, 0) / meetings.length).toFixed(1) : 0}/5
+                {meetings.length > 0
+                  ? (meetings.reduce((sum, m) => sum + m.rating, 0) / meetings.length).toFixed(1)
+                  : 0}
+                /5
               </CardTitle>
               <CardDescription>Điểm hạnh phúc TB</CardDescription>
             </CardHeader>
@@ -178,10 +193,7 @@ const Dashboard = () => {
 
         {/* Personal Info Section */}
         <div className="mb-8">
-          <PersonalInfoForm 
-            personalInfo={personalInfo}
-            onUpdate={handleUpdatePersonalInfo}
-          />
+          <PersonalInfoForm personalInfo={personalInfo} onUpdate={handleUpdatePersonalInfo} />
         </div>
 
         {/* Meetings Section */}
