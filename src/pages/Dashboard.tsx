@@ -1066,19 +1066,19 @@ const Dashboard = () => {
     ]);
     setPersonalInfo({
       person1: {
-        name: "",
-        birthday: "",
-        hobby: "",
-        nickname: "",
+        name: "Anh Quan",
+        birthday: "2005-11-02",
+        hobby: "Nguyen",
+        nickname: "Cunscondangthuong",
       },
       person2: {
-        name: "",
-        birthday: "",
-        hobby: "",
-        nickname: "",
+        name: "Thảo Nguyên",
+        birthday: "2005-04-15",
+        hobby: "Mèo",
+        nickname: "Meowcondangso",
       },
     });
-    toast.success("Đã làm mới dữ liệu! Dữ liệu đã trở về mặc định.");
+    toast.success("Đã reset dữ liệu! Dữ liệu đã trở về lại ngày 17/09/2025.");
   };
 
   // Sắp xếp meetings theo ngày mới nhất lên trên (YYYY-MM-DD)
