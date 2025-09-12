@@ -22,7 +22,7 @@ const Home = () => {
         {/* Main content */}
         <div className="space-y-6">
           <h1 className="text-6xl font-bold love-gradient bg-clip-text text-transparent">
-            Love Diary
+            Anniversary
           </h1>
           <p className="text-xl text-foreground/80 max-w-md mx-auto">
             Nơi lưu giữ tình cảm 💕
