@@ -13,6 +13,12 @@ interface Meeting {
   location: string;
   description: string;
   rating: number;
+  hugs: number;        // Số lần ôm
+  kisses: number;      // Số lần hôn
+  handHolds: number;   // Số lần nắm tay
+  durationHours: number;    // Thời gian giờ
+  durationMinutes: number;  // Thời gian phút
+  durationSeconds: number;  // Thời gian giây
 }
 
 interface MeetingFormProps {
@@ -28,7 +34,13 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
     date: "",
     location: "",
     description: "",
-    rating: 5
+    rating: 5,
+    hugs: 0,
+    kisses: 0,
+    handHolds: 0,
+    durationHours: 0,
+    durationMinutes: 0,
+    durationSeconds: 0,
   });
 
   useEffect(() => {
@@ -38,7 +50,13 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
         date: meeting.date,
         location: meeting.location,
         description: meeting.description,
-        rating: meeting.rating
+        rating: meeting.rating,
+        hugs: meeting.hugs,
+        kisses: meeting.kisses,
+        handHolds: meeting.handHolds,
+        durationHours: meeting.durationHours,
+        durationMinutes: meeting.durationMinutes,
+        durationSeconds: meeting.durationSeconds,
       });
     }
   }, [meeting]);
@@ -52,7 +70,19 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
 
     onSubmit(formData);
     if (!isEditing) {
-      setFormData({ title: "", date: "", location: "", description: "", rating: 5 });
+      setFormData({
+        title: "",
+        date: "",
+        location: "",
+        description: "",
+        rating: 5,
+        hugs: 0,
+        kisses: 0,
+        handHolds: 0,
+        durationHours: 0,
+        durationMinutes: 0,
+        durationSeconds: 0,
+      });
     }
   };
 
@@ -71,7 +101,7 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="Buổi hẹn đầu tiên..."
                 className="border-primary/20 focus:border-primary"
               />
@@ -82,7 +112,7 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
                 id="date"
                 type="date"
                 value={formData.date}
-                onChange={(e) => setFormData({...formData, date: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                 className="border-primary/20 focus:border-primary"
               />
             </div>
@@ -93,7 +123,7 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
             <Input
               id="location"
               value={formData.location}
-              onChange={(e) => setFormData({...formData, location: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
               placeholder="Cafe, công viên..."
               className="border-primary/20 focus:border-primary"
             />
@@ -104,7 +134,7 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
             <Textarea
               id="description"
               value={formData.description}
-              onChange={(e) => setFormData({...formData, description: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Chia sẻ cảm xúc của bạn..."
               className="border-primary/20 focus:border-primary"
             />
@@ -118,9 +148,83 @@ const MeetingForm = ({ meeting, onSubmit, onCancel, isEditing = false }: Meeting
               min="1"
               max="5"
               value={formData.rating}
-              onChange={(e) => setFormData({...formData, rating: parseInt(e.target.value)})}
+              onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })}
               className="border-primary/20 focus:border-primary"
             />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <Label htmlFor="hugs">Số lần ôm</Label>
+              <Input
+                id="hugs"
+                type="number"
+                min="0"
+                value={formData.hugs}
+                onChange={(e) => setFormData({ ...formData, hugs: parseInt(e.target.value) })}
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
+            <div>
+              <Label htmlFor="kisses">Số lần hôn</Label>
+              <Input
+                id="kisses"
+                type="number"
+                min="0"
+                value={formData.kisses}
+                onChange={(e) => setFormData({ ...formData, kisses: parseInt(e.target.value) })}
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
+            <div>
+              <Label htmlFor="handHolds">Số lần nắm tay</Label>
+              <Input
+                id="handHolds"
+                type="number"
+                min="0"
+                value={formData.handHolds}
+                onChange={(e) => setFormData({ ...formData, handHolds: parseInt(e.target.value) })}
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <Label htmlFor="durationHours">Giờ</Label>
+              <Input
+                id="durationHours"
+                type="number"
+                min="0"
+                value={formData.durationHours}
+                onChange={(e) => setFormData({ ...formData, durationHours: parseInt(e.target.value) })}
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
+            <div>
+              <Label htmlFor="durationMinutes">Phút</Label>
+              <Input
+                id="durationMinutes"
+                type="number"
+                min="0"
+                max="59"
+                value={formData.durationMinutes}
+                onChange={(e) => setFormData({ ...formData, durationMinutes: parseInt(e.target.value) })}
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
+            <div>
+              <Label htmlFor="durationSeconds">Giây</Label>
+              <Input
+                id="durationSeconds"
+                type="number"
+                min="0"
+                max="59"
+                value={formData.durationSeconds}
+                onChange={(e) => setFormData({ ...formData, durationSeconds: parseInt(e.target.value) })}
+                className="border-primary/20 focus:border-primary"
+              />
+            </div>
           </div>
 
           <div className="flex space-x-2">

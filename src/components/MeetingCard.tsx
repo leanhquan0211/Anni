@@ -10,6 +10,12 @@ interface Meeting {
   location: string;
   description: string;
   rating: number;
+  hugs: number;        // Số lần ôm
+  kisses: number;      // Số lần hôn
+  handHolds: number;   // Số lần nắm tay
+  durationHours: number;    // Thời gian giờ
+  durationMinutes: number;  // Thời gian phút
+  durationSeconds: number;  // Thời gian giây
 }
 
 interface MeetingCardProps {
@@ -64,6 +70,12 @@ const MeetingCard = ({ meeting, onEdit, onDelete }: MeetingCardProps) => {
       {meeting.description && (
         <CardContent>
           <p className="text-foreground/70">{meeting.description}</p>
+          <div className="mt-2 space-y-1">
+            <p>Hugs: {meeting.hugs} 💕</p>
+            <p>Kisses: {meeting.kisses} 😘</p>
+            <p>Hand Holds: {meeting.handHolds} 🤝</p>
+            <p>Thời gian: {meeting.durationHours} giờ, {meeting.durationMinutes} phút, {meeting.durationSeconds} giây</p>
+          </div>
         </CardContent>
       )}
     </Card>
