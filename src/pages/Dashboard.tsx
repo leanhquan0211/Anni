@@ -166,7 +166,7 @@ const Dashboard = () => {
     {
       id: "9",
       title: "Đi ăn tối, đưa quà 20/10",
-      date: "2024-19-10",
+      date: "2024-10-19",
       location: "Không nhớ ăn ở mô",
       description: "Đưa quà 20/10 trước tại 20/10 Anhquan về quê, biets gi khong, hom do đi lấy hoa mà mưa quá trời luon, uot mlem melm",
       rating: 5,
@@ -716,7 +716,7 @@ const Dashboard = () => {
       {
         id: "9",
         title: "Đi ăn tối, đưa quà 20/10",
-        date: "2024-19-10",
+        date: "2024-10-19",
         location: "Không nhớ ăn ở mô",
         description: "Đưa quà 20/10 trước tại 20/10 Anhquan về quê, biets gi khong, hom do đi lấy hoa mà mưa quá trời luon, uot mlem melm",
         rating: 5,
