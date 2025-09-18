@@ -348,7 +348,7 @@ const Dashboard = () => {
     {
       id: "22",
       title: "8-3",
-      date: "2025-08-03",
+      date: "2025-03-08",
       location: "Buffet bên Tô Vĩnh Diện",
       description: "Đi ăn buffet có Tài Linh",
       rating: 5,
@@ -898,7 +898,7 @@ const Dashboard = () => {
       {
         id: "22",
         title: "8-3",
-        date: "2025-08-03",
+        date: "2025-03-08",
         location: "Buffet bên Tô Vĩnh Diện",
         description: "Đi ăn buffet có Tài Linh",
         rating: 5,
